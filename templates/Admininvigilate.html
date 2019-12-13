@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>教务管理系统</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/amazeui.min.css') }}">
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/app.css') }}">
+    <script language="javascript">
+    function preview(oper){
+        if (oper < 10){
+            bdhtml=window.document.body.innerHTML;
+            sprnstr="<!--startprint"+oper+"-->";
+            eprnstr="<!--endprint"+oper+"-->";
+            prnhtml=bdhtml.substring(bdhtml.indexOf(sprnstr)+18); 
+            prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));
+            window.document.body.innerHTML=prnhtml;
+            window.print();
+            window.document.body.innerHTML=bdhtml;
+        } else {
+          window.print();
+        }
+    }
+    </script>
+</head>
+
+<body data-type="generalComponents">
+
+
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <a href="javascript:;" class="tpl-logo">
+                <img src="/static/assets/img/logo.png" alt="">
+            </a>
+        </div>
+        <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+        </div>
+
+
+
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+
+
+            </ul>
+        </div>
+    </header>
+
+
+    <div class="tpl-page-container tpl-page-header-fixed">
+
+
+        <div class="tpl-left-nav tpl-left-nav-hover">
+            <div class="tpl-left-nav-title">
+                功能列表
+            </div>
+            <div class="tpl-left-nav-list">
+                <ul class="tpl-left-nav-menu">
+                    <li class="tpl-left-nav-item">
+                        <a href = "{{ url_for('Admin', Id = Id) }}" class="nav-link tpl-left-nav-link-list">
+                            <i class="am-icon-bar-chart"></i>
+                            <span>系统首页</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="tpl-content-wrapper">
+
+            <div class="tpl-portlet-components">
+                <div class="portlet-title">
+                    <div class="caption font-green bold">
+                        <span class="am-icon-code"></span>
+                    </div>
+                    <div class="tpl-portlet-input tpl-fz-ml">
+                        <div class="portlet-input input-small input-inline">
+                            <div class="input-icon right">
+                                <!-- <i class="am-icon-search"></i> -->
+                                <input type="hidden" class="form-control form-control-solid" placeholder="搜索..."> </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="tpl-block">
+
+                    <div class="am-g">
+                        <div class="am-u-sm-12">
+                            <form class="am-form">
+                                <table class="am-table am-table-striped am-table-hover table-main">
+                                <!--startprint1-->
+                                    <tbody>
+                                        {% for my_list in list %}
+                                        <tr>
+                                            <td>{{ my_list[0] }}</td>
+                                            <td>{{ my_list[1] }}</td>
+                                            <td>{{ my_list[2] }}</td>
+                                            <td>{{ my_list[3] }}</td>
+                                            <td>{{ my_list[4] }}</td>
+                                            <td>{{ my_list[5] }}</td>
+                                            <td>{{ my_list[6] }}</td>
+                                        </tr>
+                                       {% endfor %}
+                                    </tbody>
+                                <!--endprint1-->
+                                </table>
+
+                                <hr>
+
+                            </form>
+                        <input type= button name='button_export' title='打印1' onclick=preview(1) value=打印>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tpl-alert"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <script src="/static/assets/js/amazeui.min.js"></script>
+    <script src="/static/assets/js/app.js"></script>
+</body>
+
+</html>

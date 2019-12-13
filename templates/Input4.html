@@ -1,0 +1,214 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>智能考场系统</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+     <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/amazeui.min.css') }}">
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/app.css') }}">
+    <script type="text/javascript">
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					$('#img-preview').attr('src', e.target.result);
+					$('#img-preview').show();
+
+					$("#results").html('');
+				}
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+
+		$("#InputFile").change(function () {
+			readURL(this);
+		});
+
+
+
+
+
+		$('#upload-file-btn').click(function () {
+			$('.loader').show();
+			$("#results").html('');
+
+			var form_data = new FormData($('#upload-file')[0]);
+			$.ajax({
+				type: 'POST',
+				url: '/predict',
+				data: form_data,
+				contentType: false,
+				cache: false,
+				processData: false,
+				async: false,
+				success: function (data) {
+					console.log(data.success);
+
+					$('.loader').hide();
+
+					$.each(data.predictions, function (i, item) {
+						console.log(item);
+						label = item["label"];
+						prob = item["probability"].toFixed(2);
+						percent = prob * 100;
+
+						$("#results").append('<label>' + percent + '% ' + label + '</label><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="' + percent + '" aria-valuemin="0" aria-valuemax="100" style="width:' + percent + '%"></div></div>');
+					});
+				},
+			});
+		});
+	</script>
+</head>
+
+<body data-type="generalComponents">
+
+
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <a href="javascript:;" class="tpl-logo">
+                <img src="/static/assets/img/logo.png" alt="">
+            </a>
+        </div>
+        <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+        </div>
+
+
+
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+
+
+            </ul>
+        </div>
+    </header>
+
+
+
+
+
+
+
+    <div class="tpl-page-container tpl-page-header-fixed">
+
+
+        <div class="tpl-left-nav tpl-left-nav-hover">
+            <div class="tpl-left-nav-title">
+                功能列表
+            </div>
+            <div class="tpl-left-nav-list">
+                <ul class="tpl-left-nav-menu">
+                    <li class="tpl-left-nav-item">
+                        <a href = "{{ url_for('Admin', Id = Id) }}" class="nav-link active">
+                            <i class="am-icon-home"></i>
+                            <span>系统首页</span>
+                        </a>
+                    </li>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tpl-content-wrapper">
+            <div class="tpl-portlet-components">
+                <div class="col-md-12">
+                    <h3 class="xgmm-tit">录入选课数据</h3>
+                </div>
+
+                <form method="post">
+                    <div class="row">
+			<div class="col-6">
+				<img id="img-preview"  alt="preview image" class="img-thumbnail" style="max-height:400px; display:none;">
+				<br/>
+				<form id="upload-file" method="post" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="InputFile">Resim Dosyası:</label>
+						<input name="image" type="file" class="form-control-file" id="InputFile" aria-describedby="fileHelp">
+						<small id="fileHelp" class="form-text text-muted"></small>
+					</div>
+
+					<button id="upload-file-btn" type="button" class="btn btn-primary">上传</button>
+                    {% for message in get_flashed_messages() %}
+                            {{ message }}
+                        {% endfor %}
+				</form>
+			</div>
+			<div class="col-6">
+				<div class="loader" style="display:none;"></div>
+
+				<div id="results">
+					<span> </span>
+				</div>
+			</div>
+		</div>
+                   <div class="form-group">
+                        <input type="submit" value="录入数据" class="btn btn-primary">
+                    </div>
+
+
+                </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#                    <div class="col-md-12">#}
+{#                        <div class="search-btn">#}
+{#                            <div style="text-align: center;">#}
+{#                                <input class="btn btn-primary" type="submit" value="修改">#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+
+
+                </div>
+                <div class="tpl-block">
+
+                    <div class="am-g">
+                        <div class="am-u-sm-12">
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tpl-alert"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="C:/Users/dell/Desktop/code2/static/assets/js/jquery.min.js"></script>
+    <script src="C:/Users/dell/Desktop/code2/static/assets/js/amazeui.min.js"></script>
+    <script src="C:/Users/dell/Desktop/code2/static/assets/js/app.js"></script>
+</body>
+
+</html>

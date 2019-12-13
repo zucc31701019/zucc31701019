@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>智能考场系统</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="index">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+     <link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/amazeui.min.css') }}">
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/app.css') }}">
+    <style type="text/css">
+        .ant-btn {
+        line-height: 1.499;
+        position: relative;
+        display: inline-block;
+        font-weight: 400;
+        white-space: nowrap;
+        text-align: center;
+        background-image: none;
+        border: 1px solid transparent;
+        -webkit-box-shadow: 0 2px 0 rgba(0,0,0,0.015);
+        box-shadow: 0 2px 0 rgba(0,0,0,0.015);
+        cursor: pointer;
+        -webkit-transition: all .3s cubic-bezier(.645, .045, .355, 1);
+        transition: all .3s cubic-bezier(.645, .045, .355, 1);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        height: 32px;
+        padding: 0 15px;
+        font-size: 14px;
+        border-radius: 4px;
+        color: rgba(0,0,0,0.65);
+        background-color: #fff;
+        border-color: #d9d9d9;
+    }
+    
+    .ant-btn-primary {
+        color: #fff;
+        background-color: #1890ff;
+        border-color: #1890ff;
+        text-shadow: 0 -1px 0 rgba(0,0,0,0.12);
+        -webkit-box-shadow: 0 2px 0 rgba(0,0,0,0.045);
+        box-shadow: 0 2px 0 rgba(0,0,0,0.045);
+    }
+    .ant-btn-red {
+        color: #fff;
+        background-color: #FF5A44;
+        border-color: #FF5A44;
+        text-shadow: 0 -1px 0 rgba(0,0,0,0.12);
+        -webkit-box-shadow: 0 2px 0 rgba(0,0,0,0.045);
+        box-shadow: 0 2px 0 rgba(0,0,0,0.045);
+    }
+        </style>
+</head>
+
+<body data-type="generalComponents">
+
+
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <a href="javascript:;" class="tpl-logo">
+                <img src="/static/assets/img/logo.png" alt="">
+            </a>
+        </div>
+        <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+        </div>
+
+
+
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+
+
+            </ul>
+        </div>
+    </header>
+
+    <div class="tpl-page-container tpl-page-header-fixed">
+
+
+        <div class="tpl-left-nav tpl-left-nav-hover">
+            <div class="tpl-left-nav-title">
+                功能列表
+            </div>
+            <div class="tpl-left-nav-list">
+                <ul class="tpl-left-nav-menu">
+                    <li class="tpl-left-nav-item">
+                        <a href = "{{ url_for('Admin', Id = Id) }}" class="nav-link active">
+                            <i class="am-icon-home"></i>
+                            <span>系统首页</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tpl-content-wrapper">
+            <div class="tpl-portlet-components">
+                <div class="col-md-12">
+                    <h3 class="xgmm-tit">删除教室</h3>
+                </div>
+
+                <form method="post">
+                    <label class="col-sm-4 control-label" for="firstname">
+                        <span id="Label1">教学楼：</span>
+                    </label>
+                    <div class="col-sm-8">
+                        <input name="academicbuilding" class="form-control" id="academicbuilding" style="width: 200px;" type="text">
+                    </div>
+                   <label class="col-sm-4 control-label" for="firstname">
+                       <span id="Label2">教室Id：</span>
+                   </label>
+                    <div class="col-sm-8" style="width: 200px;">
+                        <input name="classroomId" class="form-control" id="classroomId" onkeyup="CreateRatePasswdReq(this);" type="text">
+                    </div>
+                   <div class="form-group">
+                        <input type="submit" value="确认" class="ant-btn ant-btn-red">
+                    </div>
+                    {% for message in get_flashed_messages() %}
+                            {{ message }}
+                        {% endfor %}
+                </form>
+
+
+                </div>
+                <div class="tpl-block">
+
+                    <div class="am-g">
+                        <div class="am-u-sm-12">
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tpl-alert"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="C:/Users/dell/Desktop/code2/static/assets/js/jquery.min.js"></script>
+    <script src="C:/Users/dell/Desktop/code2/static/assets/js/amazeui.min.js"></script>
+    <script src="C:/Users/dell/Desktop/code2/static/assets/js/app.js"></script>
+</body>
+
+</html>

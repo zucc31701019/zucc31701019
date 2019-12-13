@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员主界面</title>
+</head>
+<body>
+
+<p>管理员主界面</p>
+<form method="post">
+    <input type="submit" value="显示考试信息"><br>
+</form>
+
+{% for my_list in list %}
+    {{ my_list[0] }}
+    {{ my_list[1] }}
+    {{ my_list[2] }}
+    {{ my_list[3] }}
+    {{ my_list[4] }} <br>
+{% endfor %}
+
+</body>
+</html>
